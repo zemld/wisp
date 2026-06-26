@@ -9,8 +9,9 @@ type logger struct {
 	fields map[string]any
 }
 
-func NewLogger(l *slog.Logger) *logger {
+func NewLogger(l *slog.Logger) Logger {
 	return &logger{
-		l: l,
+		l:      l,
+		fields: make(map[string]any),
 	}
 }

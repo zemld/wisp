@@ -45,6 +45,10 @@ func getContextValues(ctx context.Context) map[string]any {
 }
 
 func (l *logger) WithField(key string, value any) Logger {
+	if l.fields == nil {
+		l.fields = make(map[string]any)
+	}
+
 	fields := maps.Clone(l.fields)
 	fields[key] = value
 
