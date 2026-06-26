@@ -25,6 +25,10 @@ func (l *logger) log(ctx context.Context, level slog.Level, msg string, args ...
 	argsCopy := make([]any, len(args))
 	copy(argsCopy, args)
 
+	for key, value := range l.fields {
+		argsCopy = append(argsCopy, slog.Any(key, value))
+	}
+
 	requestID := RequestID(ctx)
 
 	if requestID != "" {
