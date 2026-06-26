@@ -29,16 +29,16 @@ func (l *logger) log(ctx context.Context, level slog.Level, msg string, args ...
 		argsCopy = append(argsCopy, slog.Any(key, value))
 	}
 
-	requestID := RequestID(ctx)
-
-	if requestID != "" {
-		argsCopy = append(argsCopy, slog.String("request_id", requestID))
-	}
-
 	contextValues := getContextValues(ctx)
 
 	for key, value := range contextValues {
 		argsCopy = append(argsCopy, slog.Any(key, value))
+	}
+
+	requestID := RequestID(ctx)
+
+	if requestID != "" {
+		argsCopy = append(argsCopy, slog.String("request_id", requestID))
 	}
 
 	l.l.Log(ctx, level, msg, argsCopy...)
